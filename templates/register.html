@@ -1,0 +1,22 @@
+{% from "_render_field.html" import render_field %}
+{% extends "base.html" %}
+{% block mainblock %}
+<div class="card-body">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li style="color:red;">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
+    <form action="/register" method="POST">
+        {{ render_field(form.email, type="email", placeholder="Enter email", id="email") }}
+        {{ render_field(form.password, type="password", placeholder="Enter password", id="pwd") }}
+        {{ render_field(form.name, type="name", id="name") }}
+        {{ form.hidden_tag() }}
+        <button type="submit" class="btn btn-primary", value="login">Submit</button>
+    </form>
+</div>
+{% endblock %}

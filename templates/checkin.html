@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block mainblock %}
+<script src="{{ url_for('static', filename='js/ajax_getBookings.js')}}"></script>
+<div class="card">
+    <div class="row">
+        <div class="col">
+            <div class="alert-box m-5" style="display: none;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="text-center m-5 passport-container">
+                <label for="passport passport-label-text">Passport</label>
+            </div>
+            <div class="list-group m-5" id="list-tab" role="tablist"></div>
+        </div>
+        <div class="col-8 mb-5">
+            <div class="m-5">
+                <select name="passport" id="passport" class="dropdown-list">
+                    <option value="">Select a passport</option>
+                    {% for passport in passports|sort %}
+                    <option value="{{ passport }}">{{ passport }}</option>
+                    {% endfor %}  
+                </select> 
+            </div>
+            <div class="tab-content m-5" id="nav-tabContent">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

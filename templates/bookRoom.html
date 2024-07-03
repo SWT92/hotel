@@ -1,0 +1,72 @@
+{% from "_render_field.html" import render_field %}
+{% extends "base.html" %}
+{% block mainblock %}
+<div class="card px-4">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li style="color:red;">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
+    <form action="/bookRoom" method="POST">
+        {{ form.hidden_tag() }}
+        {% if not current_user.guest %}
+        <div class="row">
+            <div class="col-6">
+                {{ render_field(form.passport, type="text", placeholder="", id="passport") }}
+            </div>
+            <div class="col-6">
+                {{ render_field(form.country, type="text", placeholder="", id="country") }}
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            {% set tPrice = booking.room.price * booking.getNumberOfNight() %}
+            <div class="card-body">
+                <p id="booking">Status: {{ booking.status }}</p>
+                <p id="booking">Check In: {{ booking.checkInDate }}</p>
+                <p id="booking">Check Out: {{ booking.checkOutDate }}</p>
+                <p id="booking">Room: {{ booking.room.roomType.name }} {{ booking.room.roomType.price }}</p>
+                <p id="booking">Bed: {{ booking.room.bedType.name }} {{ booking.room.bedType.price }}</p>
+                <p id="booking" >Amenities:</p>
+                <ul>
+                    {% for amenity in booking.room.amenities %}
+                    <li>{{ amenity.itemCode }} {{ amenity.price }} {{ amenity.description }}</li>
+                    {% endfor %}
+                </ul>
+                <p id="booking">Price : ${{ "%.2f"|format(booking.room.price) }} x {{ booking.getNumberOfNight() }} = ${{ "%.2f"|format(tPrice) }}</p>
+            </div>
+        </div>
+        <div class="hidden">
+            {{ render_field(form.passport, type="hidden", id="passport") }}
+            {{ render_field(form.country, type="hidden", id="country") }}
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-6">
+                {{ render_field(form.room, type="name", id="room") }}
+            </div>
+            <div class="col-6">
+                {{ render_field(form.bed, type="name", id="bed") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ render_field(form.checkindate, type="date", id="checkindate") }}
+            </div>
+            <div class="col-6">
+                {{ render_field(form.checkoutdate, type="date", id="checkoutdate") }}
+            </div>
+        </div>
+        <div class="w-100 checkboxgroup">
+            <ul class="checkboxgroup">
+                {{ render_field(form.amenities, type="checkboxgroup", id="amenities") }}
+            </ul>   
+        </div>  
+        <button type="submit" class="btn btn-primary" value="bookroom">Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block mainblock %}
+<a id="top"> 
+<div class="row col-xl-10 col-lg-9 col-md-8 m-auto">
+  <!-- title for room -->
+  <div class="card card-common title-bar">
+    <h4>Type of Room Available</h4> 
+  </div>
+  <!-- card for rooms -->
+  {% for item in room %}
+  <div class="card card-common d-flex justify-content-center mx-5 info-card">
+    <div class="card-title text-center m-2">
+      <h3>{{item.name |capitalize}} Single Room</h3>
+    </div>
+    <div class="text-center m-2">
+      <img class="img-fluid" src="{{ url_for('static', filename='img/tinified/'+item.filename)}}">
+      <img class="img-fluid" src="{{ url_for('static', filename='img/tinified/'+item.filename_layout)}}">
+    </div>
+    <div class="card-text m-2 pl-2">
+      <h5>Dimension : L{{item.length}}m x W{{item.width}}m</h5>
+      <h5>Area : {{item.area}} {{item.unit}} (approximately)</h5>
+      <h5>Price : ${{item.price}} per night stay (empty room)</h5> 
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="row col-xl-10 col-lg-9 col-md-8 m-auto">
+  <!-- title for bed -->
+  <div class="card card-common title-bar">
+    <h4>Type of Bed Available</h4> 
+  </div>
+  <!-- card for bed -->
+  {% for item in bed %}
+  <div class="card card-common d-flex justify-content-between mx-5 info-card">
+    <div class="card-title text-center m-2">
+      <h3>{{item.name|capitalize}} Bed</h3>
+    </div>
+    <div class="text-center m-2">
+      <img class="img-fluid" src="{{ url_for('static', filename='img/tinified/'+item.filename)}}">
+    </div>
+    <div class="card-text">
+      <h5>Description : {{item.description}}</h5>
+      <h5>Price : ${{item.price}} per night stay (empty room)</h5> 
+    </div>
+  </div>
+  {% endfor %} 
+</div>
+<div class="row justify-content-md-center">
+  <div class="text-justify">
+    <div class="card common-card about-us-button" style="width:9rem; height:3rem">
+      {% if panel == "CHOICE OF ROOM AND BED" %}
+        <a href="#top">Rooms</a>
+      {% else %}
+      <a href="rooms">Rooms</a>
+      {% endif %}
+    </div>
+    <div class="spacer" style="width:2rem">
+    </div> 
+    <div class="card common-card about-us-button " style="width:9rem; height:3rem">
+      <a href="amenities">Amenities</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

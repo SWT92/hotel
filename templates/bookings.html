@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block mainblock %}
+<div class="card">
+    <div class="row">
+        <div class="col-4 py-5">
+            <div class="list-group" id="list-tab" role="tablist">
+                {% for booking in bookings %}
+                <a class="list-group-item list-group-item-action" id="list-{{ booking.checkInDate }}-list" data-toggle="list" href="#list-{{ booking.checkInDate }}" role="tab" aria-controls="{{ booking.checkInDate }}">{{ booking.checkInDate }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-8 py-5">
+            <div class="tab-content" id="nav-tabContent">
+                {% for booking in bookings %}
+                <div class="tab-pane fade" id="list-{{ booking.checkInDate }}" role="tabpanel" aria-labelledby="list-{{ booking.checkInDate }}-list">
+                    {% set tPrice = booking.room.price * booking.getNumberOfNight() %}
+                    <h4> Booking Details :</h4> 
+                    <p id="booking">Status: {{ booking.status }}</p>
+                    <p id="booking">Check In: {{ booking.checkInDate }}</p>
+                    <p id="booking">Check Out: {{ booking.checkOutDate }}</p>
+                    <p id="booking">Room: {{ booking.room.roomType.name }} {{ booking.room.roomType.price }}</p>
+                    <p id="booking">Bed: {{ booking.room.bedType.name }} {{ booking.room.bedType.price }}</p>
+                    <p id="booking" >Amenities:</p>
+                    <ol>
+                        {% for amenity in booking.room.amenities %}
+                        <li>{{ amenity.itemCode|capitalize}} ${{ amenity.price }}</li>
+                        {% endfor %}
+                    </ol>
+                    <p id="booking">Price : ${{ booking.room.price }} x {{ booking.getNumberOfNight() }} = ${{ '%.2f'|format(tPrice) }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

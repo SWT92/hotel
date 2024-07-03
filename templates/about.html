@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block mainblock %}
+<div class="row mb-2">
+  <div class="container-fluid img-fluid">
+    <div class="card common-card">
+      <img src="{{ url_for('static', filename='img/tinified/SAMI.jpg')}}">
+    </div>
+  </div>
+  <div class="container-fluid mx-10 py-2 about-us-slogan">
+    <div class="card common-card align-items-center border-0 about-us-slogan">
+      <h4>
+        <span class="about-us-fronttext">Customise</span>
+        <span class="about-us-backtext">your Stay and Pay exactly for what you choose!</span>
+      </h4> 
+    </div>
+  </div>
+  <div class="container-fluid ml-auto pt-2 d-flex justify-content-center text-center align-items-center">
+    <div class="text-center">
+      <div class="card common-card d-flex justify-content-center text-center about-us-button" style="width:9rem; height:3rem">
+        <a href="rooms">Rooms</a>
+      </div>
+      <div class="card common-card d-flex justify-content-center text-center about-us-button " style="width:9rem; height:3rem">
+        <a href="amenities">Amenities</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
