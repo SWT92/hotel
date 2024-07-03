@@ -7,6 +7,7 @@ import csv
 import io
 import json
 
+from app import db
 
 from models.forms import BookRoomForm
 from models.amenitytype import AmenityType

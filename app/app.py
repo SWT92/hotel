@@ -1,6 +1,6 @@
 from flask_login import login_required, current_user
 from flask import render_template, request
-from app import app, login_manager
+from app import app, db, login_manager
 
 from controllers.auth import auth
 app.register_blueprint(auth)
